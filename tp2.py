@@ -18,6 +18,7 @@ print("Base canonique de R²")
 print(canoniqueR2)
 
 ## Matrice de corrélation ###
+Z = np.array([])
 for j in xrange(0,nbColones):
  	moy = moyenne(A[:,j])
  	matMoy = moy*np.ones(nbColones,dtype=np.int) # Calcul de la moyenne
@@ -27,8 +28,11 @@ for j in xrange(0,nbColones):
 	print("Ecart type colone")
 	print(ecartT)
 	print("Caractere centre")
-	caratereC = caractereCentre(A[:,j],moy)
-	print(caratereC)
-	caratereCR = caractereCentreReduit(caratereC,ecartT)
+	caractereC = caractereCentre(A[:,j],moy)
+	print(caractereC)
+	caractereCR = caractereCentreReduit(caractereC,ecartT)
 	print("Caratere centre reduit")
-	print(caratereCR)
+	print(caractereCR)
+	Z = np.append(Z,caractereCR.reshape(3,1),axis=1)
+#Z = Z.reshape(3,2)
+print(Z)
