@@ -18,7 +18,7 @@ print("Base canonique de R²")
 print(canoniqueR2)
 
 ## Matrice de corrélation ###
-Z = np.array([])
+Zt = np.array([]) # On créer une matrice pour stocker la matrice centré rédruit transposé
 for j in xrange(0,nbColones):
  	moy = moyenne(A[:,j])
  	matMoy = moy*np.ones(nbColones,dtype=np.int) # Calcul de la moyenne
@@ -28,11 +28,19 @@ for j in xrange(0,nbColones):
 	print("Ecart type colone")
 	print(ecartT)
 	print("Caractere centre")
-	caractereC = caractereCentre(A[:,j],moy)
+	caractereC = caractereCentre(A[:,j],moy) # On calcul le cartère centré
 	print(caractereC)
-	caractereCR = caractereCentreReduit(caractereC,ecartT)
+	caractereCR = caractereCentreReduit(caractereC,ecartT) # On calcul le caractère centré et réduit
 	print("Caratere centre reduit")
 	print(caractereCR)
-	Z = np.append(Z,caractereCR.reshape(3,1),axis=1)
-#Z = Z.reshape(3,2)
+	Zt = np.append(Zt,caractereCR,axis=0) # On insert le caractère colone dans la matrice général
+Zt = Zt.reshape(2,3) # On transforme en matrice
+Z = Zt.T # On transpose pour obtenir la matrice Z
+print("Matrice Z du caractère centré réduit")
 print(Z)
+mcorrelation = correlation(Z)
+print("Matrice de corrélation de Z")
+print(mcorrelation)
+
+
+## Mode propre ##
