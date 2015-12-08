@@ -22,7 +22,7 @@ def ecartType(matrice,moyenne):
 def caractereCentreReduit(caractereC,ecartype):
 	return (caractereC/ecartype)# On divise le caractère reduit par l'ecartype pour obtenir le caractere centré reduit
 
-def correlation(Z):
+def correlation(Z): # Calcul la corrélation à partir du caractère centré réduit
 	Zt = Z.T
 	n = Z.shape[0]
 	return((1.0/n)*np.dot(Zt,Z))

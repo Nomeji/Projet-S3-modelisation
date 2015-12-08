@@ -9,6 +9,8 @@ print("Matrice A :")
 print(A) # On l'affiche
 print("Nombre de colones de A:")
 nbColones = A.shape[1]
+print("Nombre de lignes de A:")
+nbLignes = A.shape[0]
 print(nbColones) # Nombre de ligne et de colones de A
 canoniqueR3 = np.array([1,0,0,0,1,0,0,0,1]).reshape(3,3) # On créer la base canonique de R³
 print("Base canonique de R³")
@@ -34,13 +36,29 @@ for j in xrange(0,nbColones):
 	print("Caratere centre reduit")
 	print(caractereCR)
 	Zt = np.append(Zt,caractereCR,axis=0) # On insert le caractère colone dans la matrice général
-Zt = Zt.reshape(2,3) # On transforme en matrice
+Zt = Zt.reshape(nbColones,nbLignes) # On transforme en matrice
 Z = Zt.T # On transpose pour obtenir la matrice Z
 print("Matrice Z du caractère centré réduit")
 print(Z)
-mcorrelation = correlation(Z)
-print("Matrice de corrélation de Z")
-print(mcorrelation)
+R = correlation(Z)
+print("R, matrice de corrélation de Z")
+print(R)
 
 
 ## Mode propre ##
+valPropreR = np.linalg.eig(R)[0] # Calcul des valeurs propres et des vecteurs propre. On récupère chaque valeur indépendement.
+vecPropreR = np.linalg.eig(R)[1]
+print("Valeurs propres de R")
+print(valPropreR)
+print("Vecteurs propres de R")
+print(vecPropreR)
+
+## Axes principaux ##
+C = np.array([]) # C permet de stocker les coordonnées des individus dans la base des axes principaux de R
+for x in xrange(0,nbLignes):
+	C = np.append(C,np.dot(vecPropreR.T,Z[x,:]),axis=0)
+C = C.reshape(nbLignes,nbColones)
+print("Coordonnées des individus dans la base des axes principaux de R")
+print(C)
+
+## Composante principale ##
